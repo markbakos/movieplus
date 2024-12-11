@@ -1,7 +1,10 @@
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {motion} from "framer-motion"
 import axios from "axios"
-const Home = () => {
+import {Link} from "react-router-dom";
+import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx"
+
+const Home:FC = () => {
     const [movies, setMovies] = useState([])
 
     const [textPos, setTextPos] = useState({x: 0, y: 0})
@@ -34,16 +37,20 @@ const Home = () => {
     }, []);
 
     return (
-        <>
+        <div className="overflow-hidden">
             <header className="h-[60vh] bg-blue-700">
-                <nav className="flex justify-between">
-                    <button className="text-3xl text-white font-bold mx-10 select-none">Movie+</button>
-                    <button className="text-xl text-black font-bold mx-10 my-9 bg-white w-32 h-12 rounded-full">Sign in
-                    </button>
+                <nav className="flex justify-between py-5">
+                    <Link to="/">
+                        <button className="text-3xl text-white font-bold mx-10 select-none h-12">Movie+</button>
+                    </Link>
+                    <Link to="/login">
+                        <button className="text-xl text-black font-bold mx-10 bg-white w-32 h-12 rounded-full hover:bg-gray-200 active:bg-gray-300 transition">Sign in</button>
+                    </Link>
+
                 </nav>
                 <div className="flex flex-col items-center justify-center mt-32">
                     <motion.h1
-                        className="text-6xl text-white font-bold lg:w-1/3 sm:w-1/2 text-center lg:p-10 sm:p-5 select-none z-20"
+                        className="text-6xl text-white font-bold lg:w-1/3 sm:w-1/2 text-center lg:p-10 sm:p-8 select-none z-20"
                         animate={{x: textPos.x, y: textPos.y}}
                         transition={{type: "spring", stiffness: 50, damping: 20}}
                     >Explore unlimited movies and TV shows.
@@ -57,12 +64,15 @@ const Home = () => {
             <div className="flex flex-col bg-gradient-to-b from-gray-600 to-gray-900 z-30 p-4 shadow-lg">
                 <div className="flex flex-col items-center py-4">
                     <h2 className="text-xl text-white select-none">Ready to get started? Register now!</h2>
-                    <button className="text-xl text-white px-10 py-3 mt-4 bg-blue-700 rounded-full hover:bg-blue-800 active:bg-blue-900 transition">Join now</button>
+                    <Link to="/register">
+                        <button className="text-xl text-white px-10 py-3 mt-4 bg-blue-700 rounded-full hover:bg-blue-800 active:bg-blue-900 transition">Join now</button>
+                    </Link>
                 </div>
 
                 <div className="w-full h-72 whitespace-nowrap rounded-md overflow-hidden">
+                    <ScrollArea>
                     <div className="flex w-max space-x-4 p-4 scrollbar-hide scroll-smooth">
-                        {movies.map((movie) => (
+                        {movies.map((movie:any) => (
                             <div key={movie.id} className="inline-block">
                                 <div className="overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
                                     <img
@@ -75,11 +85,13 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
+                        <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
 
 
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 export default Home
