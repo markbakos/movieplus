@@ -44,7 +44,7 @@ const Home:FC = () => {
                         <button className="text-3xl text-white font-bold mx-10 select-none h-12">Movie+</button>
                     </Link>
                     <Link to="/login">
-                        <button className="text-xl text-black font-bold mx-10 bg-white w-32 h-12 rounded-full hover:bg-gray-200 active:bg-gray-300 transition">Sign in</button>
+                        <button className="text-xl text-black font-bold mx-10 select-none bg-white w-32 h-12 rounded-full hover:bg-gray-200 active:bg-gray-300 transition">Sign in</button>
                     </Link>
 
                 </nav>
@@ -65,7 +65,7 @@ const Home:FC = () => {
                 <div className="flex flex-col items-center py-4">
                     <h2 className="text-xl text-white select-none">Ready to get started? Register now!</h2>
                     <Link to="/register">
-                        <button className="text-xl text-white px-10 py-3 mt-4 bg-blue-700 rounded-full hover:bg-blue-800 active:bg-blue-900 transition">Join now</button>
+                        <button className="text-xl text-white px-10 py-3 mt-4 select-none bg-blue-700 rounded-full hover:bg-blue-800 active:bg-blue-900 transition">Join now</button>
                     </Link>
                 </div>
 
