@@ -1,6 +1,7 @@
 import React, {FC, useState} from "react";
 import {motion} from "framer-motion"
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 export const Login:FC = () => {
 
@@ -10,14 +11,43 @@ export const Login:FC = () => {
         setMousePosition({x: event.clientX, y: event.clientY})
     }
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [message, setMessage] = useState('')
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+
+        if(isLoading) return
+
+        setIsLoading(true)
+
+        try{
+            const response = await axios.post('http://localhost:5000/api/auth/login', {
+                email,
+                password
+            })
+
+            setMessage('Logged in successfully!')
+
+            setEmail('')
+            setPassword('')
+            setIsLoading(false)
+
+            localStorage.setItem('token', response.data.token)
+        }
+        catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("Error:", error.response?.data || error.message)
+                setMessage(error.response?.data.message)
+            } else {
+                console.error("Error:", error)
+                setMessage('Something went wrong!')
+            }
+        }
     }
-
-
 
     return (
         <div
@@ -85,9 +115,8 @@ export const Login:FC = () => {
                                 <span className="text-white cursor-pointer"> Sign up now</span>
                             </Link>
                         </p>
-
-
                     </form>
+                    {message && <div className={`text-xl font-medium ${message === "Logged in successfully!" ? "text-green-500" : "text-red-500"}`}>{message}</div>}
                 </div>
             </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import React, {FC, useState} from "react"
 import {motion} from "framer-motion";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export const Register:FC = () => {
 
@@ -17,7 +18,9 @@ export const Register:FC = () => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if(isLoading) return
 
@@ -28,6 +31,31 @@ export const Register:FC = () => {
 
         setIsLoading(true)
         setMessage('')
+
+        try{
+            const response = await axios.post('http://localhost:5000/api/auth/register', {
+                email,
+                password
+            })
+
+            setEmail('')
+            setPassword('')
+            setConfirmPassword('')
+            setIsLoading(false)
+            setMessage('Registered successfully!')
+
+            console.log(response.data)
+
+            setTimeout(() => navigate('/login'), 1000)
+
+        }
+        catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("Error:", error.response?.data || error.message);
+            } else {
+                console.error("Error:", error);
+            }
+        }
     }
 
     return(
@@ -91,12 +119,12 @@ export const Register:FC = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <label htmlFor="password" className="block ml-[10%] text-md font-medium mt-4">
+                        <label htmlFor="confirmPassword" className="block ml-[10%] text-md font-medium mt-4">
                             Repeat Password
                         </label>
                         <input
-                            id="password"
-                            name="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
                             type="password"
                             className="appearance-none block mx-auto w-[80%] px-3 py-2 border border-gray-300 rounded-[5px] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 lg:text-md sm:text-sm text-gray-900"
                             value={confirmPassword}
@@ -111,7 +139,7 @@ export const Register:FC = () => {
                             {isLoading ? "Signing up..." : "Sign up"}
                         </button>
                     </form>
-                    {message && <div className="text-xl font-medium text-red-500">{message}</div>}
+                    {message && <div className={`text-xl font-medium ${message === "Registered successfully!" ? "text-green-500" : "text-red-500"}`}>{message}</div>}
                 </div>
 
             </motion.div>
