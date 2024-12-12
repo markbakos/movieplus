@@ -1,9 +1,10 @@
+import {Navbar} from "@/components/Navbar.tsx";
 
 
 export const AuthHome = () => {
     return(
         <div>
-            Home
+            <Navbar />
         </div>
     )
 }
