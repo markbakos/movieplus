@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home"
 import {Login} from "@/pages/Login.tsx";
 import {Register} from "@/pages/Register.tsx";
+import ProtectedRoute from "@/pages/ProtectedRoute.tsx";
+import {AuthHome} from "@/pages/AuthHome.tsx";
 
 function App() {
   return (
@@ -10,8 +12,21 @@ function App() {
           <div>
               <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+
+                  <Route path="/login" element={
+                      <Login />
+                  } />
+
+                  <Route path="/register" element={
+                        <Register />
+                  } />
+
+                  <Route path="/home" element={
+                      <ProtectedRoute>
+                          <AuthHome />
+                      </ProtectedRoute>
+                  } />
+
               </Routes>
           </div>
       </Router>

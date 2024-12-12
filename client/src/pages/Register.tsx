@@ -1,6 +1,6 @@
-import React, {FC, useState} from "react"
+import React, {FC, useEffect, useState} from "react"
 import {motion} from "framer-motion";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 export const Register:FC = () => {
@@ -10,6 +10,34 @@ export const Register:FC = () => {
     const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
         setMousePosition({x: event.clientX, y: event.clientY})
     }
+
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(undefined)
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const token = localStorage.getItem('token')
+            if(!token) {
+                setIsAuthenticated(false)
+                return
+            }
+
+            try{
+                const response = await axios.get('http://localhost:5000/api/auth/verify', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                if(response.status === 200) {
+                    setIsAuthenticated(true)
+                }
+            }
+            catch (e) {
+                setIsAuthenticated(false)
+            }
+        }
+        checkAuth()
+
+    }, [])
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
@@ -58,7 +86,19 @@ export const Register:FC = () => {
         }
     }
 
-    return(
+    if(isAuthenticated===undefined){
+        return(
+            <div>
+                Checking Authentication
+            </div>
+        )
+    }
+
+    return isAuthenticated ? (
+            <Navigate to="/home" />
+        )
+        :
+        (
         <div
             onMouseMove={handleMouseMove}
             className="relative h-screen w-screen overflow-hidden flex justify-center items-center"
