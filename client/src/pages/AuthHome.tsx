@@ -5,6 +5,7 @@ export const AuthHome = () => {
     return(
         <div>
             <Navbar />
+
         </div>
     )
 }

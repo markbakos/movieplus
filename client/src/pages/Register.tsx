@@ -99,90 +99,105 @@ export const Register:FC = () => {
         )
         :
         (
-        <div
-            onMouseMove={handleMouseMove}
-            className="relative h-screen w-screen overflow-hidden flex justify-center items-center"
-        >
-            <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800"
-                style={{
-                    backgroundSize: "150% 150%",
-                }}
-                animate={{
-                    backgroundPosition: `${mousePosition.x / 20}% ${mousePosition.y / 20}%`,
-                }}
-                transition={{
-                    ease: "linear",
-                    duration: 0.1,
-                }}
+            <div
+                onMouseMove={handleMouseMove}
+                className="relative min-h-screen w-full overflow-hidden flex justify-center items-center"
             >
-                <div className="absolute top-5 left-5">
-                    <Link to="/">
-                        <button className="text-3xl text-white font-bold mx-10 select-none h-12">Movie+</button>
-                    </Link>
-                </div>
-                <div className="absolute top-5 right-5">
-                    <Link to="/login">
-                        <button className="text-xl text-black font-bold mx-10 select-none bg-white w-32 h-12 rounded-full hover:bg-gray-200 active:bg-gray-300 transition">Sign in</button>
-                    </Link>
-                </div>
+                <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800"
+                    style={{
+                        backgroundSize: "150% 150%",
+                    }}
+                    animate={{
+                        backgroundPosition: `${mousePosition.x / 20}% ${mousePosition.y / 20}%`,
+                    }}
+                    transition={{
+                        ease: "linear",
+                        duration: 0.1,
+                    }}
+                >
+                    <div className="absolute top-5 left-5">
+                        <Link to="/">
+                            <button
+                                className="text-2xl sm:text-3xl text-white font-bold mx-4 sm:mx-10 select-none h-12">Movie+
+                            </button>
+                        </Link>
+                    </div>
+                    <div className="absolute top-5 right-5">
+                        <Link to="/login">
+                            <button
+                                className="text-sm sm:text-xl text-black font-bold mx-4 sm:mx-10 select-none bg-white w-24 sm:w-32 h-10 sm:h-12 rounded-full hover:bg-gray-200 active:bg-gray-300 transition">Sign
+                                in
+                            </button>
+                        </Link>
+                    </div>
 
-
-
-                <div className="h-screen mt-[-6rem] flex flex-col items-center justify-center">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="lg:w-1/4 h-2/5 m-8 w-[80vw] bg-black/10 rounded-xl text-white">
-                        <h1 className="lg:m-8 m-4 text-3xl font-semibold cursor-default">Join now!</h1>
-                        <label htmlFor="email" className="block ml-[10%] text-md font-medium">
-                            Email
-                        </label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="text"
-                            className="appearance-none block mx-auto w-[80%] px-3 py-2 border border-gray-300 rounded-[5px] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 lg:text-md sm:text-sm text-gray-900"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-
-                        <label htmlFor="password" className="block ml-[10%] text-md font-medium mt-4">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="appearance-none block mx-auto w-[80%] px-3 py-2 border border-gray-300 rounded-[5px] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 lg:text-md sm:text-sm text-gray-900"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="confirmPassword" className="block ml-[10%] text-md font-medium mt-4">
-                            Repeat Password
-                        </label>
-                        <input
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            className="appearance-none block mx-auto w-[80%] px-3 py-2 border border-gray-300 rounded-[5px] shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 lg:text-md sm:text-sm text-gray-900"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-
-                        <button
-                            className="w-[80%] ml-[10%] mt-6 text-center text-white bg-gray-800 hover:bg-gray-900 transition font-medium rounded-[4px] text-sm px-5 py-2.5"
-                            type="submit"
-                            disabled={isLoading}>
-                            {isLoading ? "Signing up..." : "Sign up"}
-                        </button>
-                    </form>
-                    {message && <div className={`text-xl font-medium ${message === "Registered successfully!" ? "text-green-500" : "text-red-500"}`}>{message}</div>}
-                </div>
-
-            </motion.div>
-        </div>
-    )
+                    <div className="min-h-screen px-4 py-12 flex flex-col items-center justify-center">
+                        <form
+                            onSubmit={handleSubmit}
+                            className="w-full max-w-md bg-black/10 rounded-xl text-white p-6 sm:p-8"
+                        >
+                            <h1 className="text-2xl sm:text-3xl font-semibold mb-6 cursor-default">Join now!</h1>
+                            <div className="space-y-4">
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium mb-1">
+                                        Email
+                                    </label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 text-sm text-gray-900"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="password" className="block text-sm font-medium mb-1">
+                                        Password
+                                    </label>
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 text-sm text-gray-900"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+                                        Repeat Password
+                                    </label>
+                                    <input
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        type="password"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 text-sm text-gray-900"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                className="w-full mt-6 text-center text-white bg-gray-800 hover:bg-gray-900 transition font-medium rounded-md text-sm px-5 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                                type="submit"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? "Signing up..." : "Sign up"}
+                            </button>
+                        </form>
+                        {message && (
+                            <div
+                                className={`mt-4 text-lg font-medium ${message === "Registered successfully!" ? "text-green-500" : "text-red-500"}`}>
+                                {message}
+                            </div>
+                        )}
+                    </div>
+                </motion.div>
+            </div>
+        )
 }
