@@ -5,7 +5,7 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 
 export const Navbar = () => {
     return(
-        <nav className="w-screen h-20 bg-gray-900 flex flex-row items-center overflow-hidden">
+        <nav className="fixed w-screen h-20 bg-gray-900 flex flex-row items-center overflow-hidden z-20">
             <Link to="/home">
                 <button className="text-3xl text-white font-bold select-none p-5 md:p-10">Movie+</button>
             </Link>
