@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
+import {Link} from "react-router-dom";
 
 interface MediaItem {
     id: number
@@ -27,12 +28,12 @@ export const MediaRow: React.FC<MediaRowProps> = ({ title, items }) => {
                             transition={{ duration: 0.2 }}
                         >
                             <div className="overflow-hidden w-max rounded-lg shadow-lg">
-                                <img
+                                <Link to={`/browse/${item.id}`}><img
                                     src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
                                     alt={item.title}
                                     className="h-64 w-44 object-cover rounded-lg shadow-md select-none cursor-pointer"
                                     draggable="false"
-                                />
+                                /></Link>
                             </div>
                         </motion.div>
                     ))}

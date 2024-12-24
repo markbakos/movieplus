@@ -169,4 +169,28 @@ router.get('/search', async (req, res) => {
     }
 });
 
+router.get('/browse/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+            },
+        });
+
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            console.error(`TMDB API Error: ${response.status} - ${errorDetails}`);
+            return res.status(response.status).json({ error: `Failed to fetch movie with ID ${id}` });
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(`Error in /genre/${genreId} route:`, error);
+        res.status(500).json({ error: `Failed to fetch movie with ID ${id}` });
+    }
+});
+
 module.exports = router;

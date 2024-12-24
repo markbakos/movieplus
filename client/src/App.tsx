@@ -5,6 +5,7 @@ import {Login} from "@/pages/Login.tsx";
 import {Register} from "@/pages/Register.tsx";
 import ProtectedRoute from "@/pages/ProtectedRoute.tsx";
 import {AuthHome} from "@/pages/AuthHome.tsx";
+import {Movie} from "@/pages/Movie.tsx";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
                       <ProtectedRoute>
                           <AuthHome />
                       </ProtectedRoute>
+                  } />
+
+                  <Route path="/browse/:id" element={
+                      <Movie />
                   } />
 
               </Routes>

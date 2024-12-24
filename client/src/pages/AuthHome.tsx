@@ -34,13 +34,16 @@ export const AuthHome: React.FC = () => {
                 const responseNowPlaying = await axios.get<{ results: Movie[] }>('http://localhost:5000/api/movies/now-playing')
                 setNowPlayingMovies(responseNowPlaying.data.results)
 
+
+
             } catch (error) {
                 console.error('Error fetching movies:', error)
             }
         }
-
         fetchMovies()
     }, [])
+
+    console.log(popularMovies)
 
     return (
         <div className="overflow-x-hidden min-h-screen bg-gray-800">
